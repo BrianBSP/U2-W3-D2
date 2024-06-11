@@ -74,3 +74,20 @@ window.addEventListener("DOMContentLoaded", () => {
     generaAllert();
   }
 });
+let counter = 0;
+const increment = () => counter++;
+
+increment();
+increment();
+increment();
+console.log(counter);
+const incrementAndLog = () => {
+  increment();
+  console.log(counter);
+};
+
+setInterval(() => {
+  incrementAndLog();
+}, 1000);
+
+sessionStorage.setItem("count", JSON.stringify(counter));
