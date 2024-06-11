@@ -19,7 +19,7 @@ const generaLista = (utente) => {
 
 /* genera allert */
 const generaAllert = () => {
-  const container = document.querySelector(".container");
+  const container = document.querySelector(".contain-alert");
   const allert = document.createElement("div");
   allert.classList.add("alert", "alert-danger");
   allert.style.marginBlock = "10px";
@@ -51,10 +51,11 @@ const removeName = () => {
   const nomiSalvati = JSON.parse(localStorage.getItem("lista-memory"));
   nomiSalvati.pop();
   users = nomiSalvati;
-  localStorage.setItem("lista-memory", JSON.stringify(nomiSalvati));
+  localStorage.setItem("lista-memory", JSON.stringify(users));
   const listaNomi = document.querySelector("#lista-nomi > ul");
   listaNomi.innerHTML = "";
   nomiSalvati.forEach((obj) => generaLista(obj));
+  if (nomiSalvati.length === 0) generaAllert();
 };
 
 const btnDelete = document.getElementById("btn-delete");
