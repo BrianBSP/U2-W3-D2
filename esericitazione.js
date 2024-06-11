@@ -18,6 +18,10 @@ const generaLista = (utenti) => {
   listaNomi.appendChild(lista);
   lista.appendChild(elementiLista);
 };
+
+/* funzione cancella */
+
+/* creo un evento al button save */
 let users = [];
 form.onsubmit = (event) => {
   event.preventDefault();
@@ -25,8 +29,21 @@ form.onsubmit = (event) => {
   const user = new Utente(nome.value);
   users.push(user);
 
+  localStorage.setItem("lista-memory", JSON.stringify(users));
+
   generaLista(user);
   console.log(users);
 
   form.reset();
 };
+
+window.addEventListener("DOMContentLoaded", () => {
+  const nomiDaStorage = localStorage.getItem("lista-memory");
+  if (nomiDaStorage) {
+    const nomiArray = JSON.parse(nomiDaStorage);
+    users = nomiArray;
+
+    users.forEach((user) => generaLista(user));
+  } else {
+  }
+});
