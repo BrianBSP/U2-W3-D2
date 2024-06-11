@@ -21,10 +21,25 @@ const generaLista = (utenti) => {
 
 /* funzione cancella */
 
+/* genera allert */
+const generaAllert = () => {
+  const container = document.querySelector(".container");
+  const allert = document.createElement("div");
+  allert.classList.add("alert", "alert-danger");
+  allert.style.marginBlock = "10px";
+  allert.innerText = "Nessun nome nella lista. Aggiungi nomi";
+  container.appendChild(allert);
+};
+
 /* creo un evento al button save */
 let users = [];
 form.onsubmit = (event) => {
   event.preventDefault();
+
+  const allert = document.querySelector(".alert");
+  if (allert) {
+    allert.remove();
+  }
 
   const user = new Utente(nome.value);
   users.push(user);
@@ -32,10 +47,17 @@ form.onsubmit = (event) => {
   localStorage.setItem("lista-memory", JSON.stringify(users));
 
   generaLista(user);
-  console.log(users);
 
   form.reset();
 };
+
+const btnDelete = document.getElementById("btn-delete");
+btnDelete.addEventListener("click", (event) => {
+  event.preventDefault();
+  const nomiSalvati = JSON.parse(localStorage.getItem("lista-memory"));
+  nomiSalvati.pop();
+  console.log(nomiSalvati);
+});
 
 window.addEventListener("DOMContentLoaded", () => {
   const nomiDaStorage = localStorage.getItem("lista-memory");
@@ -45,5 +67,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
     users.forEach((user) => generaLista(user));
   } else {
+    generaAllert();
   }
 });
