@@ -75,12 +75,12 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 });
 let counter = 0;
-const increment = () => counter++;
+let counts = [];
+const increment = () => {
+  counter++;
+  counts.push(counter);
+};
 
-increment();
-increment();
-increment();
-console.log(counter);
 const incrementAndLog = () => {
   increment();
   console.log(counter);
@@ -88,6 +88,5 @@ const incrementAndLog = () => {
 
 setInterval(() => {
   incrementAndLog();
+  sessionStorage.setItem("count", JSON.stringify(counts));
 }, 1000);
-
-sessionStorage.setItem("count", JSON.stringify(counter));
